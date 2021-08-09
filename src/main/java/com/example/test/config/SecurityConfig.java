@@ -36,7 +36,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/register").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/delete").hasRole("ADMIN")
+                .antMatchers("/addAdmin").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login").permitAll()
@@ -62,6 +63,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
         String fetchRolesQuery = "select email, active"
                 + " from users"
                 + " where email = ?"
+                +"where active =true"
         ;
         auth.jdbcAuthentication()
                 .usersByUsernameQuery(fetchUsersQuery)

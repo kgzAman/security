@@ -40,7 +40,7 @@ public class User extends BaseEntity {
     @Column(unique = true)
     private String email;
 
-
+    @Enumerated
     private boolean active;
 
 }
